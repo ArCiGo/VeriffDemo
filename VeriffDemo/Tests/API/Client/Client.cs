@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
 using RestSharp;
 using VeriffDemo.Tests.API.Models;
 
@@ -13,30 +14,23 @@ namespace VeriffDemo.Tests.API
         private readonly RestClient veriffDemoSessionAPIClient = new RestClient("https://demo.saas-3.veriff.me/");
         private readonly RestClient veriffMagicSessionAPIClient = new RestClient("https://magic.saas-3.veriff.me/api/v2/sessions");
 
-        // Body object
-        private VeriffSetupSessionModel bodyJSONRequest = new VeriffSetupSessionModel()
-        {
-            FullName = "Armando Cifuentes",
-            Language = "es-MX",
-            DocumentCountry = "MX",
-            DocumentType = "ID_CARD",
-            AdditionalData = { IsTest = false }
-        };
-
         // Actions
-        // check if works
         public async Task<RestResponse> PostVeriffSessionAccountAsync()
         {
+            var parameters = new
+            {
+                full_name = "Armando Cifuentes",
+                lang = "es-MX",
+                document_country = "MX",
+                document_type = "ID_CARD",
+                additionalData = new { isTest = false }
+            };
+
             RestRequest postVeriffSessionRequest = new RestRequest();
             postVeriffSessionRequest.Method = Method.Post;
-            postVeriffSessionRequest.AddJsonBody(bodyJSONRequest);
+            postVeriffSessionRequest.AddObject(parameters);
 
-            RestResponse createResponse = await veriffDemoSessionAPIClient.ExecuteAsync(postVeriffSessionRequest);
-
-            // validate what returns the response to save the token
-            // Console.WriteLine(createResponse.content);
-
-            return createResponse;
+            return await veriffDemoSessionAPIClient.ExecutePostAsync(postVeriffSessionRequest);
         }
 
         // check if works
