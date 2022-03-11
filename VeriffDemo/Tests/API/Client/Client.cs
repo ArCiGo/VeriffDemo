@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using Newtonsoft.Json;
 using RestSharp;
 using RestSharp.Authenticators.OAuth2;
+using VeriffDemo.Tests.API.Data;
 using VeriffDemo.Tests.API.Models;
 
 namespace VeriffDemo.Tests.API
@@ -20,17 +21,17 @@ namespace VeriffDemo.Tests.API
         // Actions
         public async Task<RestResponse> PostVeriffSessionAccountAsync()
         {
-            var parameters = new
+            /*var parameters = new
             {
                 full_name = "Armando Cifuentes",
                 lang = "es-MX",
                 document_country = "MX",
                 document_type = "ID_CARD",
                 additionalData = new { isTest = false }
-            };
+            };*/
 
-            RestRequest postVeriffSessionRequest = new RestRequest(veriffDemoSessionAPIClient, Method.Post);
-            postVeriffSessionRequest.AddObject(parameters);
+            RestRequest postVeriffSessionRequest = new RestRequest(veriffDemoSessionAPIClient, Method.Post).AddHeader("Content-type", "application/json");            
+            postVeriffSessionRequest.AddObject(TestObjects.parameters);
 
             RestResponse createResponse = await restClient.ExecutePostAsync(postVeriffSessionRequest);
             VeriffCreatedSessionModel values = JsonConvert.DeserializeObject<VeriffCreatedSessionModel>(createResponse.Content);

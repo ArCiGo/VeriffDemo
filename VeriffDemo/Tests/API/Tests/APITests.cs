@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using VeriffDemo.Tests.API.Models;
 using System.Net;
 using Newtonsoft.Json;
+using VeriffDemo.Tests.API.Data;
 
 namespace VeriffDemo.Tests.API.Tests
 {
@@ -29,10 +30,10 @@ namespace VeriffDemo.Tests.API.Tests
 
             Assert.AreEqual(HttpStatusCode.OK, getSessionResponse.StatusCode);
             Assert.AreEqual(values.Status, "created");
-            Assert.AreEqual(values.InitData["language"].ToString(), "es-MX");
-            Assert.AreEqual(values.InitData["preselectedDocument"]["country"].ToString(), "MX");
-            Assert.AreEqual(values.InitData["preselectedDocument"]["type"].ToString(), "ID_CARD");
-            Assert.AreEqual(values.VendorIntegration["name"].ToString(), "End User Web Demo (Production)");
+            Assert.AreEqual(TestObjects.expectedValues["language"], values.InitData["language"].ToString());
+            Assert.AreEqual(TestObjects.expectedValues["country"], values.InitData["preselectedDocument"]["country"].ToString());
+            Assert.AreEqual(TestObjects.expectedValues["type"], values.InitData["preselectedDocument"]["type"].ToString());
+            Assert.AreEqual(TestObjects.expectedValues["name"], values.VendorIntegration["name"].ToString());
         }
     }
 }

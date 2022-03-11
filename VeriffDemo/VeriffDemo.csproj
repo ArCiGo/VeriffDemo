@@ -21,6 +21,7 @@
     <None Remove="RestSharp" />
     <None Remove="Tests\API\Models\" />
     <None Remove="Tests\API\Tests\" />
+    <None Remove="Tests\API\Data\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Tests\" />
@@ -29,5 +30,6 @@
     <Folder Include="Tests\UI\" />
     <Folder Include="Tests\API\Models\" />
     <Folder Include="Tests\API\Tests\" />
+    <Folder Include="Tests\API\Data\" />
   </ItemGroup>
 </Project>
