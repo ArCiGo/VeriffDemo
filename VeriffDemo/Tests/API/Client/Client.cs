@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Threading.Tasks;
+using Newtonsoft.Json;
 using RestSharp;
+using RestSharp.Authenticators.OAuth2;
 using VeriffDemo.Tests.API.Models;
 
 namespace VeriffDemo.Tests.API
@@ -8,11 +10,12 @@ namespace VeriffDemo.Tests.API
     public class Client
     {
         // Attributes
-        public string SessionToken { get; set; }
+        private string SessionToken { get; set; }
 
         // Endpoints
-        private readonly RestClient veriffDemoSessionAPIClient = new RestClient("https://demo.saas-3.veriff.me/");
-        private readonly RestClient veriffMagicSessionAPIClient = new RestClient("https://magic.saas-3.veriff.me/api/v2/sessions");
+        private readonly RestClient restClient = new RestClient();
+        private string veriffDemoSessionAPIClient = "https://demo.saas-3.veriff.me/";
+        private string veriffMagicSessionAPIClient = "https://magic.saas-3.veriff.me/api/v2/sessions";
 
         // Actions
         public async Task<RestResponse> PostVeriffSessionAccountAsync()
@@ -26,24 +29,22 @@ namespace VeriffDemo.Tests.API
                 additionalData = new { isTest = false }
             };
 
-            RestRequest postVeriffSessionRequest = new RestRequest();
-            postVeriffSessionRequest.Method = Method.Post;
+            RestRequest postVeriffSessionRequest = new RestRequest(veriffDemoSessionAPIClient, Method.Post);
             postVeriffSessionRequest.AddObject(parameters);
 
-            return await veriffDemoSessionAPIClient.ExecutePostAsync(postVeriffSessionRequest);
-        }
-
-        // check if works
-        public async Task<RestResponse> GetVeriffSessionAccountAsync()
-        {
-            RestRequest getVeriffSessionRequest = new RestRequest();
-            getVeriffSessionRequest.Method = Method.Get;
-            getVeriffSessionRequest.AddParameter("sessionToken", SessionToken);
-
-            // check if works
-            RestResponse createResponse = await veriffMagicSessionAPIClient.ExecuteAsync<VeriffCreatedSessionModel>(getVeriffSessionRequest);
+            RestResponse createResponse = await restClient.ExecutePostAsync(postVeriffSessionRequest);
+            VeriffCreatedSessionModel values = JsonConvert.DeserializeObject<VeriffCreatedSessionModel>(createResponse.Content);
+            SessionToken = values.SessionToken;
 
             return createResponse;
+        }
+
+        public async Task<RestResponse> GetVeriffSessionAccountAsync()
+        {
+            RestRequest getVeriffSessionRequest = new RestRequest(veriffMagicSessionAPIClient, Method.Get);
+            restClient.Authenticator = new OAuth2AuthorizationRequestHeaderAuthenticator(SessionToken, "Bearer");
+
+            return await restClient.ExecuteGetAsync(getVeriffSessionRequest);
         }
     }
 }

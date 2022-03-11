@@ -16,12 +16,23 @@ namespace VeriffDemo.Tests.API.Tests
         [Test, Order(1)]
         public async Task CreateSessionAsync()
         {
-            RestResponse createSessionResponse = await veriffSessionClient.PostVeriffSessionAccountAsync();
-            VeriffCreatedSessionModel values = JsonConvert.DeserializeObject<VeriffCreatedSessionModel>(createSessionResponse.Content);
+            RestResponse postSessionResponse = await veriffSessionClient.PostVeriffSessionAccountAsync();
 
-            veriffSessionClient.SessionToken = values.SessionToken;
+            Assert.AreEqual(HttpStatusCode.OK, postSessionResponse.StatusCode);
+        }
 
-            Assert.AreEqual(HttpStatusCode.OK, createSessionResponse.StatusCode);
+        [Test, Order(2)]
+        public async Task GetSessionAsync()
+        {
+            RestResponse getSessionResponse = await veriffSessionClient.GetVeriffSessionAccountAsync();
+            VeriffSessionsModel values = JsonConvert.DeserializeObject<VeriffSessionsModel>(getSessionResponse.Content);
+
+            Assert.AreEqual(HttpStatusCode.OK, getSessionResponse.StatusCode);
+            Assert.AreEqual(values.Status, "created");
+            Assert.AreEqual(values.InitData["language"].ToString(), "es-MX");
+            Assert.AreEqual(values.InitData["preselectedDocument"]["country"].ToString(), "MX");
+            Assert.AreEqual(values.InitData["preselectedDocument"]["type"].ToString(), "ID_CARD");
+            Assert.AreEqual(values.VendorIntegration["name"].ToString(), "End User Web Demo (Production)");
         }
     }
 }
