@@ -21,17 +21,18 @@ namespace VeriffDemo.Tests.API
         // Actions
         public async Task<RestResponse> PostVeriffSessionAccountAsync()
         {
-            /*var parameters = new
+            var parameters = new
             {
                 full_name = "Armando Cifuentes",
                 lang = "es-MX",
                 document_country = "MX",
                 document_type = "ID_CARD",
                 additionalData = new { isTest = false }
-            };*/
+            };
 
-            RestRequest postVeriffSessionRequest = new RestRequest(veriffDemoSessionAPIClient, Method.Post).AddHeader("Content-type", "application/json");            
-            postVeriffSessionRequest.AddObject(TestObjects.parameters);
+            RestRequest postVeriffSessionRequest = new RestRequest(veriffDemoSessionAPIClient, Method.Post);
+            // postVeriffSessionRequest.AddJsonBody(TestObjects.parameters);
+            postVeriffSessionRequest.AddObject(parameters);
 
             RestResponse createResponse = await restClient.ExecutePostAsync(postVeriffSessionRequest);
             VeriffCreatedSessionModel values = JsonConvert.DeserializeObject<VeriffCreatedSessionModel>(createResponse.Content);
