@@ -8,6 +8,7 @@ namespace VeriffDemo.Tests.API.Data
     {
         public static Dictionary<string, string> expectedValues = new Dictionary<string, string>()
         {
+            { "status", "created" },
             { "language", "es-MX" },
             { "country", "MX" },
             { "type", "ID_CARD" },

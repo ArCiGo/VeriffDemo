@@ -29,7 +29,7 @@ namespace VeriffDemo.Tests.API.Tests
             VeriffSessionsRootModel values = JsonSerializer.Deserialize<VeriffSessionsRootModel>(response.Content);
 
             Assert.AreEqual(HttpStatusCode.OK, response.StatusCode);
-            Assert.AreEqual(values.Status, "created");
+            Assert.AreEqual(TestObjects.expectedValues["status"], values.Status);
             Assert.AreEqual(TestObjects.expectedValues["language"], values.InitData.Language);
             Assert.AreEqual(TestObjects.expectedValues["country"], values.InitData.PreselectedDocument.Country);
             Assert.AreEqual(TestObjects.expectedValues["type"], values.InitData.PreselectedDocument.Type);
