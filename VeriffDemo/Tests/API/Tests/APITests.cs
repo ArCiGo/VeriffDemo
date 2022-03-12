@@ -4,8 +4,8 @@ using RestSharp;
 using System.Threading.Tasks;
 using VeriffDemo.Tests.API.Models;
 using System.Net;
-using Newtonsoft.Json;
 using VeriffDemo.Tests.API.Data;
+using System.Text.Json;
 
 namespace VeriffDemo.Tests.API.Tests
 {
@@ -17,23 +17,23 @@ namespace VeriffDemo.Tests.API.Tests
         [Test, Order(1)]
         public async Task CreateSessionAsync()
         {
-            RestResponse postSessionResponse = await veriffSessionClient.PostVeriffSessionAccountAsync();
+            RestResponse response = await veriffSessionClient.PostVeriffSessionAccountAsync();
 
-            Assert.AreEqual(HttpStatusCode.OK, postSessionResponse.StatusCode);
+            Assert.AreEqual(HttpStatusCode.OK, response.StatusCode);
         }
 
         [Test, Order(2)]
         public async Task GetSessionAsync()
         {
-            RestResponse getSessionResponse = await veriffSessionClient.GetVeriffSessionAccountAsync();
-            VeriffSessionsModel values = JsonConvert.DeserializeObject<VeriffSessionsModel>(getSessionResponse.Content);
+            RestResponse response = await veriffSessionClient.GetVeriffSessionAccountAsync();
+            VeriffSessionsRootModel values = JsonSerializer.Deserialize<VeriffSessionsRootModel>(response.Content);
 
-            Assert.AreEqual(HttpStatusCode.OK, getSessionResponse.StatusCode);
+            Assert.AreEqual(HttpStatusCode.OK, response.StatusCode);
             Assert.AreEqual(values.Status, "created");
-            Assert.AreEqual(TestObjects.expectedValues["language"], values.InitData["language"].ToString());
-            Assert.AreEqual(TestObjects.expectedValues["country"], values.InitData["preselectedDocument"]["country"].ToString());
-            Assert.AreEqual(TestObjects.expectedValues["type"], values.InitData["preselectedDocument"]["type"].ToString());
-            Assert.AreEqual(TestObjects.expectedValues["name"], values.VendorIntegration["name"].ToString());
+            Assert.AreEqual(TestObjects.expectedValues["language"], values.InitData.Language);
+            Assert.AreEqual(TestObjects.expectedValues["country"], values.InitData.PreselectedDocument.Country);
+            Assert.AreEqual(TestObjects.expectedValues["type"], values.InitData.PreselectedDocument.Type);
+            Assert.AreEqual(TestObjects.expectedValues["name"], values.VendorIntegration.Name);
         }
     }
 }
