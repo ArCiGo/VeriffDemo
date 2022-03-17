@@ -3,18 +3,23 @@ using VeriffDemo.Tests.UI.PageObjectModel.Components.Home;
 
 namespace VeriffDemo.Tests.UI.PageObjectModel.Pages
 {
-    public class VeriffHomePage : BasePage
+    public class VeriffDemoHomePage : BasePage
     {
-        // Attributes
+        // Variables
         private readonly HomeBodyComponent homeBodyComponent;
 
         // Constructor
-        public VeriffHomePage(IWebDriver driver) : base(driver)
+        public VeriffDemoHomePage(IWebDriver driver) : base(driver)
         {
             homeBodyComponent = new HomeBodyComponent(driver);
         }
 
         // Actions
+        public void GoTo(string URL)
+        {
+            Driver.Navigate().GoToUrl(URL);
+        }
+
         public void FillForm(string fullName, string sessionLanguage, string docCountry, string docType, LaunchVia launchVia)
         {
             homeBodyComponent.FillForm(fullName, sessionLanguage, docCountry, docType, launchVia);

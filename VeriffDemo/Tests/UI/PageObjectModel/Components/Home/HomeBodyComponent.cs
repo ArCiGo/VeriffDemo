@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using OpenQA.Selenium;
 
 namespace VeriffDemo.Tests.UI.PageObjectModel.Components.Home
@@ -18,6 +19,8 @@ namespace VeriffDemo.Tests.UI.PageObjectModel.Components.Home
         public IWebElement InContextRadioButton => Driver.FindElement(By.XPath("//input[@type='radio' and @value='incontext']"));
         public IWebElement RedirectRadioButton => Driver.FindElement(By.XPath("//input[@type='radio' and @value='redirect']"));
         public IWebElement VeriffMeButton => Driver.FindElement(By.XPath("//button[contains(text(), 'Veriff')]"));
+        public IWebElement IFrameVeriffVerification => Driver.FindElement(By.Id("#veriffFrame"));
+        public IWebElement QRCode => Driver.FindElement(By.XPath("//p[contains(text(), 'QR')]"));
 
         // Constructor
         public HomeBodyComponent(IWebDriver driver) : base(driver) { }
@@ -96,7 +99,7 @@ namespace VeriffDemo.Tests.UI.PageObjectModel.Components.Home
                     RedirectRadioButton.Click();
                     break;
                 default:
-                    WebDriverArgumentException ex = new WebDriverArgumentException("No such option exists!");
+                    ArgumentException ex = new ArgumentException("No such option exists!");
                     throw ex;
             }
         }
@@ -104,6 +107,18 @@ namespace VeriffDemo.Tests.UI.PageObjectModel.Components.Home
         public void ClickOnVeriffMeButton()
         {
             VeriffMeButton.Click();
-        } 
+        }
+
+        public bool QRCodeIsLoaded()
+        {
+            try
+            {
+
+            }
+            catch (Exception ex)
+            {
+
+            }
+        }
     }
 }
