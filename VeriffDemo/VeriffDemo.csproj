@@ -36,6 +36,7 @@
     <None Remove="Selenium.WebDriver" />
     <None Remove="Selenium.Support" />
     <None Remove="Selenium.WebDriver.ChromeDriver" />
+    <None Remove="Tests\UI\PageObjectModel\Utilities\" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Tests\" />
@@ -53,5 +54,6 @@
     <Folder Include="Tests\UI\PageObjectModel\Components\" />
     <Folder Include="Tests\UI\Tests\AutomationResources\" />
     <Folder Include="Tests\UI\PageObjectModel\Components\Home\" />
+    <Folder Include="Tests\UI\PageObjectModel\Utilities\" />
   </ItemGroup>
 </Project>
