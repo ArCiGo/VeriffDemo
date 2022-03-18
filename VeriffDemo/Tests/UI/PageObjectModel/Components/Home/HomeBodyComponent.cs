@@ -1,21 +1,24 @@
 ﻿using System;
 using System.Collections.Generic;
 using OpenQA.Selenium;
+using OpenQA.Selenium.Support.UI;
+using SeleniumExtras.WaitHelpers;
 
 namespace VeriffDemo.Tests.UI.PageObjectModel.Components.Home
 {
     public class HomeBodyComponent : VeriffDemoComponent
     {
         // Variables
+        private readonly WebDriverWait wait;
 
         // Elements
-        public IWebElement FullNameInputField => Driver.FindElement(By.XPath("//input[@class='TextField - module_input__3FXIK']"));
+        public IWebElement FullNameInputField => Driver.FindElement(By.XPath("//input[contains(@class, 'TextField-module_input')]"));
         public IWebElement SessionLanguageButton => Driver.FindElement(By.XPath("//button[contains(@class, 'Select-module_select') and @name='language']"));
-        public IList<IWebElement> SessionLanguageOptions => Driver.FindElements(By.XPath("//reach-portal/div/ul/li/span"));
+        public IList<IWebElement> SessionLanguageOptions => Driver.FindElements(By.XPath("//reach-portal/div/ul/li"));
         public IWebElement DocumentCountryButton => Driver.FindElement(By.XPath("//button[contains(@class, 'Autocomplete-module_iconButton')]"));
-        public IList<IWebElement> DocumentCountryOptions => Driver.FindElements(By.XPath("//reach-portal/div/ul/li/span"));
+        public IList<IWebElement> DocumentCountryOptions => Driver.FindElements(By.XPath("//reach-portal/div/ul/li"));
         public IWebElement DocumentTypeButton => Driver.FindElement(By.XPath("//button[contains(@class, 'Select-module_select') and @name='documentType']"));
-        public IList<IWebElement> DocumentTypeOptions => Driver.FindElements(By.XPath("//reach-portal/div/ul/li/span"));
+        public IList<IWebElement> DocumentTypeOptions => Driver.FindElements(By.XPath("//reach-portal/div/ul/li"));
         public IWebElement InContextRadioButton => Driver.FindElement(By.XPath("//input[@type='radio' and @value='incontext']"));
         public IWebElement RedirectRadioButton => Driver.FindElement(By.XPath("//input[@type='radio' and @value='redirect']"));
         public IWebElement VeriffMeButton => Driver.FindElement(By.XPath("//button[contains(text(), 'Veriff')]"));
@@ -23,7 +26,10 @@ namespace VeriffDemo.Tests.UI.PageObjectModel.Components.Home
         public IWebElement QRCode => Driver.FindElement(By.XPath("//p[contains(text(), 'QR')]"));
 
         // Constructor
-        public HomeBodyComponent(IWebDriver driver) : base(driver) { }
+        public HomeBodyComponent(IWebDriver driver) : base(driver)
+        {
+            wait = new WebDriverWait(driver, TimeSpan.FromSeconds(5));
+        }
 
         // Actions
         public void FillForm(string fullName, string sessionLanguage, string docCountry, string docType, LaunchVia launchVia)
@@ -49,12 +55,12 @@ namespace VeriffDemo.Tests.UI.PageObjectModel.Components.Home
 
             foreach (var item in SessionLanguageOptions)
             {
-                index++;
-
                 if (item.Text.Contains(sessionLanguage))
                 {
                     SessionLanguageOptions[index].Click();
                 }
+
+                index++;
             }
         }
 
@@ -64,12 +70,12 @@ namespace VeriffDemo.Tests.UI.PageObjectModel.Components.Home
 
             foreach (var item in DocumentCountryOptions)
             {
-                index++;
-
                 if(item.Text.Contains(docCountry))
                 {
                     DocumentCountryOptions[index].Click();
                 }
+
+                index++;
             }
         }
 
@@ -79,12 +85,12 @@ namespace VeriffDemo.Tests.UI.PageObjectModel.Components.Home
 
             foreach (var item in DocumentTypeOptions)
             {
-                index++;
-
                 if (item.Text.Contains(docType))
                 {
                     DocumentTypeOptions[index].Click();
                 }
+
+                index++;
             }
         }
 
@@ -113,11 +119,13 @@ namespace VeriffDemo.Tests.UI.PageObjectModel.Components.Home
         {
             try
             {
-
+                wait.Until(ExpectedConditions.ElementIsVisible(By.Id("#veriffFrame")));
+                Driver.SwitchTo().Frame(IFrameVeriffVerification);
+                return wait.Until(ExpectedConditions.ElementIsVisible(By.XPath("//p[contains(text(), 'QR')]"))).Displayed;
             }
             catch (Exception ex)
             {
-
+                throw ex;
             }
         }
     }

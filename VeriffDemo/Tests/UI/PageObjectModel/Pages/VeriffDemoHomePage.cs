@@ -29,5 +29,10 @@ namespace VeriffDemo.Tests.UI.PageObjectModel.Pages
         {
             homeBodyComponent.ClickOnVeriffMeButton();
         }
+
+        public bool QRCodeIsLoaded()
+        {
+            return homeBodyComponent.QRCodeIsLoaded();
+        }
     }
 }

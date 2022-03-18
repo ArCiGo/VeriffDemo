@@ -21,6 +21,8 @@ namespace VeriffDemo.Tests.UI.Tests.Tests
             vdHomePage.GoTo(baseURL);
             vdHomePage.FillForm(fullName, sessionLanguage, docCountry, docType, launchVia);
             vdHomePage.ClickOnVeriffMeButton();
+
+            Assert.IsTrue(vdHomePage.QRCodeIsLoaded());
         }
     }
 }
