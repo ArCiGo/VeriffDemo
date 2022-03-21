@@ -15,51 +15,35 @@
     <PackageReference Include="Selenium.Support" Version="4.1.0" />
     <PackageReference Include="Selenium.WebDriver.ChromeDriver" Version="99.0.4844.5100" />
     <PackageReference Include="DotNetSeleniumExtras.WaitHelpers" Version="3.11.0" />
+    <PackageReference Include="ExtentReports" Version="4.1.0" />
+    <PackageReference Include="ExtentReports.Core" Version="1.0.3" />
   </ItemGroup>
 
   <ItemGroup>
-    <None Remove="Tests\" />
-    <None Remove="Tests\API\" />
-    <None Remove="Tests\API\Client\" />
-    <None Remove="Tests\UI\" />
     <None Remove="RestSharp" />
-    <None Remove="Tests\API\Models\" />
-    <None Remove="Tests\API\Tests\" />
-    <None Remove="Tests\API\Data\" />
-    <None Remove="Tests\API\Models\Payloads\" />
-    <None Remove="Tests\API\Models\Responses\" />
-    <None Remove="Tests\UI\Tests\" />
-    <None Remove="Tests\UI\PageObjectModel\" />
-    <None Remove="Tests\UI\PageObjectModel\Pages\" />
-    <None Remove="Tests\UI\PageObjectModel\Components\" />
-    <None Remove="Tests\UI\Tests\AutomationResources\" />
-    <None Remove="Tests\UI\PageObjectModel\Components\Home\" />
     <None Remove="Selenium.WebDriver" />
     <None Remove="Selenium.Support" />
     <None Remove="Selenium.WebDriver.ChromeDriver" />
-    <None Remove="Tests\UI\PageObjectModel\Utilities\" />
-    <None Remove="Tests\UI\Tests\Tests\" />
-    <None Remove="Tests\UI\Tests\Utilities\" />
     <None Remove="DotNetSeleniumExtras.WaitHelpers" />
+    <None Remove="API\" />
+    <None Remove="UI\" />
+    <None Remove="UI\PageObjectModel\Components\Redirect\" />
+    <None Remove="Tests\" />
+    <None Remove="Tests\API\" />
+    <None Remove="Tests\UI\" />
+    <None Remove="Tests\UI\AutomationResources\" />
+    <None Remove="ExtentReports" />
+    <None Remove="ExtentReports.Core" />
+    <None Remove="Tests\Utilities\" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="API\" />
+    <Folder Include="UI\" />
+    <Folder Include="UI\PageObjectModel\Components\Redirect\" />
     <Folder Include="Tests\" />
     <Folder Include="Tests\API\" />
-    <Folder Include="Tests\API\Client\" />
     <Folder Include="Tests\UI\" />
-    <Folder Include="Tests\API\Models\" />
-    <Folder Include="Tests\API\Tests\" />
-    <Folder Include="Tests\API\Data\" />
-    <Folder Include="Tests\API\Models\Payloads\" />
-    <Folder Include="Tests\API\Models\Responses\" />
-    <Folder Include="Tests\UI\Tests\" />
-    <Folder Include="Tests\UI\PageObjectModel\" />
-    <Folder Include="Tests\UI\PageObjectModel\Pages\" />
-    <Folder Include="Tests\UI\PageObjectModel\Components\" />
-    <Folder Include="Tests\UI\Tests\AutomationResources\" />
-    <Folder Include="Tests\UI\PageObjectModel\Components\Home\" />
-    <Folder Include="Tests\UI\PageObjectModel\Utilities\" />
-    <Folder Include="Tests\UI\Tests\Tests\" />
-    <Folder Include="Tests\UI\Tests\Utilities\" />
+    <Folder Include="Tests\UI\AutomationResources\" />
+    <Folder Include="Tests\Utilities\" />
   </ItemGroup>
 </Project>
