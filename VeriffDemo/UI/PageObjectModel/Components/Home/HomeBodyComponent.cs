@@ -12,18 +12,18 @@ namespace VeriffDemo.UI.PageObjectModel.Components.Home
         private readonly WebDriverWait wait;
 
         // Elements
-        public By FullNameInputField => By.XPath("//input[contains(@class, 'TextField-module_input')]");
-        public By SessionLanguageButton => By.CssSelector("[name='language']");
-        public By SessionLanguageOptions => By.CssSelector("ul[id='downshift-0-menu'] > li");
-        public By DocumentCountryButton => By.CssSelector("[name='documentCountry']");
-        public By DocumentCountryOptions => By.CssSelector("ul[id='downshift-1-menu'] > li");
-        public By DocumentTypeButton => By.CssSelector("[name='documentType']");
-        public By DocumentTypeOptions => By.CssSelector("ul[id='downshift-2-menu'] > li");
-        public By InContextRadioButton => By.XPath("//input[@type='radio' and @value='incontext']");
-        public By RedirectRadioButton => By.XPath("//input[@type='radio' and @value='redirect']");
-        public By VeriffMeButton => By.XPath("//button[contains(text(), 'Veriff')]");
-        public By IFrameVeriffVerification => By.Id("veriffFrame");
-        public By QRCode => By.XPath("//p[contains(text(), 'QR')]");
+        private By FullNameInputField => By.XPath("//input[contains(@class, 'TextField-module_input')]");
+        private By SessionLanguageButton => By.CssSelector("[name='language']");
+        private By SessionLanguageOptions => By.CssSelector("ul[id='downshift-0-menu'] > li");
+        private By DocumentCountryButton => By.CssSelector("[name='documentCountry']");
+        private By DocumentCountryOptions => By.CssSelector("ul[id='downshift-1-menu'] > li");
+        private By DocumentTypeButton => By.CssSelector("[name='documentType']");
+        private By DocumentTypeOptions => By.CssSelector("ul[id='downshift-2-menu'] > li");
+        private By InContextRadioButton => By.XPath("//input[@type='radio' and @value='incontext']");
+        private By RedirectRadioButton => By.XPath("//input[@type='radio' and @value='redirect']");
+        private By VeriffMeButton => By.XPath("//button[contains(text(), 'Veriff')]");
+        private By IFrameVeriffVerification => By.Id("veriffFrame");
+        private By QRCode => By.XPath("//p[contains(text(), 'QR')]");
 
         // Constructor
         public HomeBodyComponent(IWebDriver driver) : base(driver)

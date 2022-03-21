@@ -1,6 +1,6 @@
 ﻿using System;
-using System.IO;
 using AventStack.ExtentReports;
+using AventStack.ExtentReports.Reporter;
 using NUnit.Framework;
 using NUnit.Framework.Interfaces;
 using OpenQA.Selenium;
@@ -15,6 +15,17 @@ namespace VeriffDemo.Tests.UI
         // Properties
         public IWebDriver Driver { get; set; }
         public WebDriverWait Wait { get; set; }
+
+        [OneTimeSetUp]
+        public void BeforeAll()
+        {
+            var path = System.Reflection.Assembly.GetCallingAssembly().CodeBase;
+            var actualPath = path.Substring(0, path.LastIndexOf("VeriffDemo"));
+            var projectPath = new Uri(actualPath).LocalPath;
+            var reportPath = projectPath + "/UIReports/" + DateTime.Now.ToString("s") + "/UITestReport.html";
+            var htmlReporter = new ExtentHtmlReporter(reportPath);
+            extent.AttachReporter(htmlReporter);
+        }
 
         [SetUp]
         public void SetUp()

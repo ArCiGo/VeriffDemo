@@ -12,7 +12,7 @@ namespace VeriffDemo.UI.PageObjectModel.Components.Redirect
         private readonly WebDriverWait wait;
 
         // Elements
-        public By QRCode => By.XPath("//p[contains(text(), 'QR')]");
+        private By QRCode => By.XPath("//p[contains(text(), 'QR')]");
 
         // Constructor
         public RedirectBodyComponent(IWebDriver driver) : base(driver)

@@ -1,5 +1,6 @@
 ﻿using System;
 using AventStack.ExtentReports;
+using AventStack.ExtentReports.Reporter;
 using NUnit.Framework;
 using NUnit.Framework.Interfaces;
 using VeriffDemo.API;
@@ -14,6 +15,17 @@ namespace VeriffDemo.Tests.API
         public BaseAPITest()
         {
             veriffSessionClient = new Client();
+        }
+
+        [OneTimeSetUp]
+        public void BeforeAll()
+        {
+            var path = System.Reflection.Assembly.GetCallingAssembly().CodeBase;
+            var actualPath = path.Substring(0, path.LastIndexOf("VeriffDemo"));
+            var projectPath = new Uri(actualPath).LocalPath;
+            var reportPath = projectPath + "/APIReports/" + DateTime.Now.ToString("s") + "/APITestReport.html";
+            var htmlReporter = new ExtentHtmlReporter(reportPath);
+            extent.AttachReporter(htmlReporter);
         }
 
         [SetUp]

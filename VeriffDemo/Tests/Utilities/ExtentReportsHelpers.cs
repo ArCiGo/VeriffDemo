@@ -14,15 +14,6 @@ namespace VeriffDemo.Tests.Utilities
         public ExtentTest test;
 
         // Actions
-        [OneTimeSetUp]
-        public virtual void BeforeAll()
-        {
-            // Set current directory to WORKSPACE_ROOT instead of /bin/Debug folder
-            Directory.SetCurrentDirectory("../../../../");
-            var htmlReporter = new ExtentHtmlReporter(Directory.GetCurrentDirectory() + "/TestReport.html");
-            extent.AttachReporter(htmlReporter);
-        }
-
         public abstract void RecordTestOutcomeToExtent(ExtentTest test, ResultState outcome, string message);
     }
 }
