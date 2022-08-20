@@ -31,7 +31,6 @@ namespace VeriffDemo.Tests.UI
         public void SetUp()
         {
             test = extent.CreateTest(TestContext.CurrentContext.Test.Name);
-
             var factory = new WebDriverFactory();
             Driver = factory.GetDriver(BrowserType.Chrome);
             Wait = new WebDriverWait(Driver, TimeSpan.FromSeconds(10));
